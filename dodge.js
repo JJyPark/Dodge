@@ -13,10 +13,12 @@ var startMenu = true;
 var gameEnd = false;
 var paused = false;
 var creditScreen = false;
+var playing = false;
 
 var x = canvas.width/2;
 var y = canvas.height-30;
 var ballRadius = 13;
+var playerBallRadius = 15;
 var ballX = (canvas.width-ballX)/2;
 var ballY = canvas.height-30;
 
@@ -57,11 +59,13 @@ var timer = 3;
 var passedTime = 0;
 
 var maxEnemies = 50;
-
+var speed = 4;
+var key = [];
 document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
-
 function keyDownHandler(e) {
+	// pressing p pauses the game
 	if (e.keyCode == 80 && !startMenu && !gameEnd) {
 		paused = !paused;
 		if (!paused) {
@@ -69,13 +73,18 @@ function keyDownHandler(e) {
 			bgm.volume = 1;
 		}
 	}
+	key[e.keyCode] = 1;
+}
+
+function keyUpHandler(e) {
+	key[e.keyCode] = 0;
 }
 
 function mouseMoveHandler(e) {
-	if (!paused){
+	if (!paused && !playing) {
 		var relativeX = e.clientX - canvas.offsetLeft - ballRadius;
 	    var relativeY = e.clientY - canvas.offsetTop - ballRadius + window.pageYOffset;
-	    if(relativeX > 0 && relativeX < canvas.width - ballRadius*2 && relativeY > 0 && relativeY < canvas.height - ballRadius*2) {
+	    if (relativeX > 0 && relativeX < canvas.width - ballRadius*2 && relativeY > 0 && relativeY < canvas.height - ballRadius*2) {
 	        ballX = relativeX + ballRadius;
 	        ballY = relativeY + ballRadius;
 	    }
@@ -194,7 +203,6 @@ for (a = 0; a < enemyCount; a++) {
 	var randDY = 0;
 	var tempQX = Math.random();
 	var tempQY = Math.random();
-
 	if (randomPlace[0] == leftX) {
 		randDX = Math.random()*2;
 		if (tempQY < 0.5) {
@@ -231,7 +239,6 @@ for (a = 0; a < enemyCount; a++) {
 			randDX = Math.random()*2 + 0.5;
 		}
 	}
-
     enemies[a] = new Enemy(randomPlace[0], randomPlace[1], randDX, randDY, tempQX, tempQY);
 }
 
@@ -281,9 +288,23 @@ function drawEnemies() {
 
 function drawPlayerCircle() {
 	resize(canvas);
+	if (playing && !paused) {
+		if (key[37]) {
+    		ballX -= speed;
+    	}
+    	if (key[38]) {
+    		ballY -= speed;
+    	}
+    	if (key[39]) {
+    		ballX += speed;
+    	}
+    	if (key[40]) {
+    		ballY += speed;
+    	}
+	}
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
-    ctx.arc(ballX, ballY, ballRadius, 0, Math.PI*2);
+    ctx.arc(ballX, ballY, playerBallRadius, 0, Math.PI*2);
     if (gameEnd || paused) {
     	ctx.fillStyle = "#0088CC";
     }
@@ -299,7 +320,7 @@ function collisionDetection() {
 	for (i = 0; i < enemies.length; i++) {
 		var currEnemy = enemies[i];
 		var inner = Math.pow((ballX-currEnemy.getX()), 2) + Math.pow((ballY-currEnemy.getY()), 2);
-		if (Math.sqrt(inner) < ballRadius*2) {
+		if (Math.sqrt(inner) < playerBallRadius*2) {
 			gameOver();
 		}
 	}
@@ -495,7 +516,6 @@ function resetEnemies() {
 		var randDY = 0;
 		var tempQX = Math.random();
 		var tempQY = Math.random();
-
 		if (randomPlace[0] == leftX) {
 			randDX = Math.random()*2;
 			if (tempQY < 0.5) {
@@ -639,6 +659,7 @@ $('#startButton').on('click', function(e) {
 	$('#musicButton').hide();
 	$('#creditButton').hide();
 	gameEnd = false;
+	playing = true;
 	document.getElementById("title").style.visibility = "hidden";
 	document.getElementById("endscreen").style.visibility = "hidden";
 	document.getElementById("congrats").style.visibility = "hidden";
@@ -661,6 +682,7 @@ $('#backToStartButton').on('click', function(e) {
 	$('#startButton').show();
 	$('#musicButton').show();
 	$('#creditButton').show();
+	playing = false;
 	if (musicScreen) {
 		if (clickedSong1) {
 			clickedSong1 = false;
