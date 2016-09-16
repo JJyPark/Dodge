@@ -14,10 +14,10 @@ var gameEnd = false;
 var paused = false;
 var creditScreen = false;
 var playing = false;
-
+var centerPlayer = false;
 var x = canvas.width/2;
 var y = canvas.height-30;
-var ballRadius = 13;
+var ballRadius = 16;
 var playerBallRadius = 15;
 var ballX = (canvas.width-ballX)/2;
 var ballY = canvas.height-30;
@@ -304,6 +304,11 @@ function drawPlayerCircle() {
 	}
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
+    if (centerPlayer) {
+    	ballX = (canvas.width-playerBallRadius)/2;
+		ballY = (canvas.height-playerBallRadius)/2 - 30;
+		centerPlayer = false;
+    }
     ctx.arc(ballX, ballY, playerBallRadius, 0, Math.PI*2);
     if (gameEnd || paused) {
     	ctx.fillStyle = "#0088CC";
@@ -450,6 +455,7 @@ function countdown() {
 			if (passedTime%1000 == 0) {
 				timer--;
 			}
+			centerPlayer = true;
 			drawPlayerCircle();
 			drawScore();
 			drawHighScore();
