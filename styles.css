@@ -457,7 +457,7 @@ table {
 	border-bottom: 1px solid gray;
 }
 
-.fb-share-button {
+#fb-container {
 	display: none;
 	position: absolute;
 	left: 50%;
