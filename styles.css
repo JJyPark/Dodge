@@ -459,6 +459,7 @@ table {
 
 .fb-container {
 	display: none;
+	position: absolute;
 	left: 50%;
 	margin-top: 580;
 	margin-left: -42;
