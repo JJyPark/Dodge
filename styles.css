@@ -456,3 +456,11 @@ table {
 	height: 59px;
 	border-bottom: 1px solid gray;
 }
+
+.fb-share-button {
+	display: none;
+	position: absolute;
+	left: 50%;
+	margin-top: 580;
+	margin-left: -16;
+}

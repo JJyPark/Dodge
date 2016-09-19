@@ -610,6 +610,9 @@ function gameOver() {
 	$('#buttonLayout').css('margin-left', '-138');
 	$('#startButton').show();
 	$('#backButtonContainer').show();
+	// change facebook share description to show high score
+	$('meta[property=og\\:description]').attr('content', "I scored " + score + ". Can you dodge better?");
+	$('.fb-share-button').show();
 	resetEnemies();
 }
 
@@ -659,6 +662,7 @@ $('#startButton').on('click', function(e) {
 	startSong.pause();
 	bgm.pause();
 	$(this).hide();
+	$('.fb-share-button').hide();
 	$('#optionButton').hide();
 	$('#highScoreButton').hide();
 	$('#backButtonContainer').hide();
@@ -681,6 +685,7 @@ $('#startButton').on('click', function(e) {
 });
 
 $('#backToStartButton').on('click', function(e) {
+	$('.fb-share-button').hide();
 	$('#backButtonContainer').hide();
 	$('#buttonLayout').css('margin-left', '');
 	$('#optionButton').show();
