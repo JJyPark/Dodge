@@ -31,6 +31,33 @@
 </head>
 
 <body>
+    <!-- TRYING FACEBOOK -->
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1462509203766411',
+        xfbml      : true,
+        version    : 'v2.7'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+<!-- END -->
+<!-- LIKE BUTTON -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
+<!-- END -->
   <h1 id="title" class="regCursor" style="text-align:center;">Dodge!</h1>
 
   <div id="endscreen" class="regCursor">
