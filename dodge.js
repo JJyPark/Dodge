@@ -611,7 +611,7 @@ function gameOver() {
 	$('#startButton').show();
 	$('#backButtonContainer').show();
 	// change facebook share description to show high score
-	//$('meta[property=og\\:description]').attr('content', "I scored " + score + ". Can you dodge better?");
+	$('meta[property=og\\:description]').attr('content', "I scored " + score + ". Can you dodge better?");
 	$('.fb-container').show();
 	resetEnemies();
 }
