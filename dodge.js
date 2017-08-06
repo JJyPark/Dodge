@@ -26,7 +26,7 @@ var ballY = canvas.height-30;
 var bestPlayers = [];
 if (localStorage.getItem("highScores") != null) {
 	var temp = JSON.parse(localStorage.getItem("highScores"));
-	for (i = 0; i < temp.length; i++) {
+	for (var i = 0; i < temp.length; i++) {
 		bestPlayers.push(temp[i]);
 	}
 }
@@ -273,7 +273,7 @@ function drawHighScore() {
 
 function drawEnemies() {
 	resize(canvas);
-	for (i = 0; i < enemies.length; i++) {
+	for (var i = 0; i < enemies.length; i++) {
 		ctx.beginPath();
 		ctx.arc(enemies[i].getX(), enemies[i].getY(), ballRadius, 0, Math.PI*2);
 		if (startMenu || gameEnd || paused) {
@@ -323,7 +323,7 @@ function drawPlayerCircle() {
 
 function collisionDetection() {
 	resize(canvas);
-	for (i = 0; i < enemies.length; i++) {
+	for (var i = 0; i < enemies.length; i++) {
 		var currEnemy = enemies[i];
 		var inner = Math.pow((ballX-currEnemy.getX()), 2) + Math.pow((ballY-currEnemy.getY()), 2);
 		if (Math.sqrt(inner) < playerBallRadius*2) {
@@ -375,7 +375,7 @@ function draw() {
     // check to see if enemies are outside canvas
     // reset that enemy
     if (!paused) {
-    	for (a = 0; a < enemies.length; a++) {
+    	for (var a = 0; a < enemies.length; a++) {
 	    	if (enemies[a].getX() + enemies[a].getDX() > canvas.width + ballRadius || enemies[a].getX() + enemies[a].getDX() < -ballRadius || 
 	    		enemies[a].getY() + enemies[a].getDY() < -ballRadius || enemies[a].getY() + enemies[a].getDY() > canvas.height + ballRadius) {
 	   			var randomPlace = randomStart();
@@ -517,7 +517,7 @@ function createEnemy() {
 
 function resetEnemies() {
 	enemies.length = 0;
-	for (a = 0; a < enemyCount; a++) {
+	for (var a = 0; a < enemyCount; a++) {
 		var randomPlace = randomStart();
 		var randDX = 0;
 		var randDY = 0;
@@ -770,7 +770,7 @@ $('#highScoreButton').on('click', function(e) {
 	var storedScores = JSON.parse(localStorage.getItem("highScores"));
 	if (storedScores.length > 0) {
 		$('#topScores').html("");
-		for (i = 0; i < storedScores.length; i++) {
+		for (var i = 0; i < storedScores.length; i++) {
 			$('#topScores').append("<tr height=\"32px\"><td>"+(i+1)+"</td><td>"+storedScores[i].name+"</td><td>"+storedScores[i].score+"</td></tr>");
 		}
 		if (storedScores.length < maxNumHighScores) {
