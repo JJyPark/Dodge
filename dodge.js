@@ -198,7 +198,7 @@ function randomStart() {
 	return [startX, startY];
 }
 
-for (a = 0; a < enemyCount; a++) {
+for (var a = 0; a < enemyCount; a++) {
 	var randomPlace = randomStart();
 	var randDX = 0;
 	var randDY = 0;
