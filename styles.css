@@ -464,3 +464,8 @@ table {
 	margin-top: 575;
 	z-index: 1;
 }
+
+canvas {
+  height: 100vh; 
+  width: 100vw; 
+}
